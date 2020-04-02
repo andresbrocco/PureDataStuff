@@ -1,0 +1,36 @@
+#N canvas 0 446 1366 685 10;
+#X declare -lib ofelia;
+#X obj 382 29 declare -lib ofelia;
+#X obj 383 55 OSCFromAppsToMidi;
+#X obj 480 133 r similarityMatrix;
+#X obj 28 32 loadbang;
+#X obj 28 74 ofWindow;
+#X msg 28 53 setPosition 30 100 \, setSize 640 360 \, create;
+#X obj 28 170 ofSetup;
+#X obj 28 191 ofBackground 102;
+#X obj 28 212 ofFill;
+#X obj 465 109 ofDraw;
+#X obj 110 161 ofSetFrameRate;
+#X msg 110 138 10;
+#X obj 465 178 mtx_* 128;
+#X obj 465 155 mtx;
+#X msg 133 21 destroy;
+#X obj 465 201 ofelia define \; function M.matrix(l) \; local m = l[1]
+\; local n = l[2] \; local cellSizeX = ofGetWidth()/(m + 1) \; local
+cellSizeY = ofGetHeight()/(n + 1) \; ofPushMatrix() \; for i = 0 \,
+n - 1 \, 1 do \; ofTranslate(cellSizeX \, 0) \; ofPushMatrix() \; for
+j = 0 \, m - 1 \, 1 do \; ofTranslate(0 \, cellSizeY) \; ofSetColor(l[50*i+j+3])
+\; ofDrawRectangle(0 \, 0 \, 0 \, cellSizeX \, cellSizeY) \; end \;
+ofPopMatrix() \; end \; ofPopMatrix() \; return \; end \; function
+M.list(l) \; M.matrix(l) \; return \; end \;;
+#X connect 2 0 13 1;
+#X connect 3 0 5 0;
+#X connect 5 0 4 0;
+#X connect 6 0 7 0;
+#X connect 6 0 11 0;
+#X connect 7 0 8 0;
+#X connect 9 0 13 0;
+#X connect 11 0 10 0;
+#X connect 12 0 15 0;
+#X connect 13 0 12 0;
+#X connect 14 0 4 0;
