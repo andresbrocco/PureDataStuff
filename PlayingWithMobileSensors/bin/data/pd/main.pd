@@ -6,51 +6,61 @@
 #X obj 28 169 ofSetup;
 #X obj 28 191 ofBackground 102;
 #X obj 28 213 ofFill;
-#X obj 615 116 ofDraw;
+#X obj 615 53 ofDraw;
 #X obj 140 214 ofSetFrameRate;
 #X msg 140 191 10;
-#X obj 615 208 mtx_* 128;
-#X obj 615 185 mtx;
+#X obj 615 194 mtx_* 128;
+#X obj 615 146 mtx;
 #X msg 23 53 destroy;
-#X obj 28 255 ofelia define -k \$0-myFunctions;
-#A __set function M.matrix(l) \; local m = l[1] \; local n = l[2] \;
-local cellSizeX = ofGetWidth()/(m + 2) \; local cellSizeY = ofGetHeight()/(n
-+ 2) \; for i = 0 \, n - 1 \, 1 do \; for j = 0 \, i \, 1 do \; ofSetColor(l[50*i+j+3])
-\; ofDrawRectangle((i+1)*cellSizeX \, (j+1)*cellSizeY \, 0 \, cellSizeX
-\, cellSizeY) \; ofDrawRectangle((j+1)*cellSizeX \, (i+1)*cellSizeY
-\, 0 \, cellSizeX \, cellSizeY) \; end \; end \; return \; end \;;
 #X obj 36 235 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X obj 28 281 ofelia define -k \$0-myFunctions;
-#A __set function M.matrix(l) \; local m = l[1] \; local n = l[2] \;
-local cellSizeX = ofGetWidth()/(m + 2) \; local cellSizeY = ofGetHeight()/(n
-+ 2) \; for i = 0 \, n - 1 \, 1 do \; for j = 0 \, m - 1 \, 1 do \;
-ofSetColor(l[50*i+j+3]) \; ofDrawRectangle((i+1)*cellSizeX \, (j+1)*cellSizeY
-\, 0 \, cellSizeX \, cellSizeY) \; end \; end \; return \; end \;;
-#X text 226 281 <- generic for any matrix (slower);
+#X text 276 321 <- generic for any matrix (slower);
 #X msg 78 53 setPosition 30 100 \, setSize 600 600 \, create;
-#X text 226 254 <- specifically for simmetric matrixes (25% faster)
+#X text 246 294 <- specifically for simmetric matrixes (25% faster)
 ;
-#X obj 630 162 receiveOscHookSensorData;
-#X obj 756 185 mtx;
-#X obj 615 139 t b b;
-#X obj 756 208 mtx_* 128;
-#X obj 615 232 ofelia define -c21 \; function M.matrix(l) \; require("\$0-myFunctions").matrix(l)
+#X obj 630 99 receiveOscHookSensorData;
+#X obj 756 146 mtx;
+#X obj 615 76 t b b;
+#X obj 615 219 ofelia define -c21 \; function M.matrix(l) \; require("\$0-myFunctions").matrix(l)
 \; return \; end \;;
-#X connect 1 0 16 0;
+#X obj 615 170 mtx_concat;
+#X obj 28 265 ofelia define -k \$0-myFunctions;
+#A __set function M.matrix(l) \; local m = l[1]/2 \; local n = l[2]
+\; local cellSizeX = ofGetWidth()/(m + 2) \; local cellSizeY = ofGetHeight()/(n
++ 2) \; for i = 0 \, n - 1 \, 1 do \; for j = 0 \, i \, 1 do \; ofSetColor(l[50*i+j+3]
+\, l[50*i+j+3+m*n] \, 128) \; ofDrawRectangle((i+1)*cellSizeX \, (j+1)*cellSizeY
+\, 0 \, cellSizeX \, cellSizeY) \; ofDrawRectangle((j+1)*cellSizeX
+\, (i+1)*cellSizeY \, 0 \, cellSizeX \, cellSizeY) \; end \; end \;
+return \; end \;;
+#X text 226 264 <- specifically for simmetric matrixes (25% faster)
+;
+#X obj 28 295 ofelia define -k \$0-myFunctions-old;
+#A __set;
+#X obj 28 321 ofelia define -k \$0-myFunctions-generic;
+#A __set;
+#X obj 630 123 spigot 1;
+#X obj 816 103 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+1;
+#X obj 771 123 spigot 1;
+#X connect 1 0 14 0;
 #X connect 3 0 4 0;
 #X connect 3 0 8 0;
 #X connect 4 0 5 0;
-#X connect 5 0 12 0;
-#X connect 6 0 20 0;
+#X connect 5 0 21 0;
+#X connect 6 0 18 0;
 #X connect 8 0 7 0;
-#X connect 9 0 22 0;
-#X connect 10 0 9 0;
+#X connect 9 0 19 0;
+#X connect 10 0 20 0;
 #X connect 11 0 2 0;
-#X connect 13 0 12 0;
-#X connect 16 0 2 0;
-#X connect 18 0 10 1;
-#X connect 18 1 19 1;
-#X connect 19 0 21 0;
-#X connect 20 0 10 0;
-#X connect 20 1 19 0;
+#X connect 12 0 21 0;
+#X connect 14 0 2 0;
+#X connect 16 0 25 0;
+#X connect 16 1 27 0;
+#X connect 17 0 20 1;
+#X connect 18 0 10 0;
+#X connect 18 1 17 0;
+#X connect 20 0 9 0;
+#X connect 25 0 10 1;
+#X connect 26 0 25 1;
+#X connect 26 0 27 1;
+#X connect 27 0 17 1;
