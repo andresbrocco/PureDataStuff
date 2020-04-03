@@ -1,8 +1,6 @@
 #N canvas 0 446 1366 685 10;
 #X declare -lib ofelia;
 #X obj 382 29 declare -lib ofelia;
-#X obj 383 55 OSCFromAppsToMidi;
-#X obj 630 183 r similarityMatrix;
 #X obj 78 32 loadbang;
 #X obj 78 74 ofWindow;
 #X obj 28 169 ofSetup;
@@ -11,8 +9,8 @@
 #X obj 615 159 ofDraw;
 #X obj 140 214 ofSetFrameRate;
 #X msg 140 191 10;
-#X obj 615 228 mtx_* 128;
-#X obj 615 205 mtx;
+#X obj 615 208 mtx_* 128;
+#X obj 615 185 mtx;
 #X msg 23 53 destroy;
 #X obj 28 255 ofelia define -k \$0-myFunctions;
 #A __set function M.matrix(l) \; local m = l[1] \; local n = l[2] \;
@@ -31,20 +29,21 @@ ofSetColor(l[50*i+j+3]) \; ofDrawRectangle((i+1)*cellSizeX \, (j+1)*cellSizeY
 \, 0 \, cellSizeX \, cellSizeY) \; end \; end \; return \; end \;;
 #X text 226 281 <- generic for any matrix (slower);
 #X msg 78 53 setPosition 30 100 \, setSize 600 600 \, create;
-#X obj 615 252 ofelia define \; function M.matrix(l) \; require("\$0-myFunctions").matrix(l)
+#X obj 615 232 ofelia define \; function M.matrix(l) \; require("\$0-myFunctions").matrix(l)
 \; return \; end \;;
 #X text 226 254 <- specifically for simmetric matrixes (25% faster)
 ;
-#X connect 2 0 12 1;
-#X connect 3 0 18 0;
-#X connect 5 0 6 0;
-#X connect 5 0 10 0;
-#X connect 6 0 7 0;
-#X connect 7 0 14 0;
-#X connect 8 0 12 0;
+#X obj 663 159 receiveOscHookSensorData;
+#X connect 1 0 16 0;
+#X connect 3 0 4 0;
+#X connect 3 0 8 0;
+#X connect 4 0 5 0;
+#X connect 5 0 12 0;
+#X connect 6 0 10 0;
+#X connect 8 0 7 0;
+#X connect 9 0 17 0;
 #X connect 10 0 9 0;
-#X connect 11 0 19 0;
-#X connect 12 0 11 0;
-#X connect 13 0 4 0;
-#X connect 15 0 14 0;
-#X connect 18 0 4 0;
+#X connect 11 0 2 0;
+#X connect 13 0 12 0;
+#X connect 16 0 2 0;
+#X connect 19 1 10 1;
