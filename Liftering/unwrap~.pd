@@ -1,0 +1,24 @@
+#N canvas 1 446 681 684 12;
+#X obj 53 68 inlet~;
+#X obj 52 275 outlet~;
+#X obj 70 130 expr~ if($v1<-3.141592 \, 6.28318 \, if($v1>3.141592
+\, -6.28318 \, 0)), f 64;
+#X obj 78 157 bang~;
+#X msg 78 182 clear;
+#X obj 69 211 rpole~ 1;
+#X obj 52 244 +~;
+#X text 15 17 This patch unwrappes the phase of the incomming signal
+;
+#X obj 70 105 rzero~ 1;
+#X text 111 67 <- phase with possible discontinuities [-pi ~ pi];
+#X text 114 275 <- continuous phase (first value is kept between -pi
+and pi \, and subsequent values can sum up and go to "+-blocksize*pi")
+;
+#X connect 0 0 6 0;
+#X connect 0 0 8 0;
+#X connect 2 0 5 0;
+#X connect 3 0 4 0;
+#X connect 4 0 5 0;
+#X connect 5 0 6 1;
+#X connect 6 0 1 0;
+#X connect 8 0 2 0;
