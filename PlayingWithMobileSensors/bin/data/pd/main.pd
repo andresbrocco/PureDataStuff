@@ -5,16 +5,15 @@
 #X obj 78 74 ofWindow;
 #X obj 28 169 ofSetup;
 #X obj 28 213 ofFill;
-#X obj 615 110 ofDraw;
+#X obj 615 119 ofDraw;
 #X obj 140 214 ofSetFrameRate;
-#X msg 140 191 10;
-#X obj 615 246 mtx;
+#X obj 615 250 mtx;
 #X msg 23 53 destroy;
 #X obj 46 235 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
 #X text 276 301 <- generic for any matrix (slower);
 #X msg 78 53 setPosition 30 100 \, setSize 600 600 \, create;
-#X obj 630 135 receiveOscHookSensorData;
+#X obj 630 144 receiveOscHookSensorData;
 #X obj 38 265 ofelia define -k \$0-myFunctions;
 #A __set function M.matrix(l) \; local m = l[1]/2 \; local n = l[2]
 \; local cellSizeX = ofGetWidth()/(m + 2) \; local cellSizeY = ofGetHeight()/(n
@@ -32,25 +31,58 @@ return \; end \;;
 ofSetColor(0 \, l[50*i+j+3] \, l[50*i+j+3+m*n]) \; ofDrawRectangle((i+1)*cellSizeX
 \, (j+1)*cellSizeY \, 0 \, cellSizeX \, cellSizeY) \; end \; end \;
 return \; end \;;
-#X obj 630 159 similarityMatrix 50;
+#X obj 630 168 similarityMatrix 50;
 #X obj 615 274 mtx_* 255;
 #X obj 28 191 ofBackground 0;
-#X obj 615 299 ofelia define -c21 \; function M.matrix(l) \; require("\$0-myFunctions-generic").matrix(l)
+#X obj 615 299 ofelia define \; function M.matrix(l) \; require("\$0-myFunctions-generic").matrix(l)
 \; return \; end \;;
-#X connect 1 0 12 0;
-#X connect 3 0 7 0;
-#X connect 3 0 19 0;
-#X connect 4 0 14 0;
-#X connect 4 0 16 0;
-#X connect 5 0 8 0;
-#X connect 7 0 6 0;
-#X connect 8 0 18 0;
-#X connect 9 0 2 0;
-#X connect 10 0 14 0;
-#X connect 10 0 16 0;
-#X connect 12 0 2 0;
-#X connect 13 0 17 0;
-#X connect 13 1 17 1;
-#X connect 17 0 8 1;
-#X connect 18 0 20 0;
-#X connect 19 0 4 0;
+#X msg 140 191 20;
+#X obj 928 107 mtx_rand;
+#X msg 928 84 5 5;
+#X obj 968 257 mtx_print input;
+#X msg 1032 127 matrix 4 4 0.33 0.25 0 0.33 0.33 0.25 0.5 0.33 0 0.25
+0.5 0 0.33 0.25 0 0.33;
+#X msg 1038 168 matrix 5 5 0.33 0.5 0.25 0 0 0.33 0.5 0 0 0 0.33 0
+0.25 0.33 0.33 0 0 0.25 0.33 0.33 0 0 0.25 0.33 0.33;
+#X msg 1048 208 matrix 6 6 0.25 0.33 0.25 0 0 0.33 0.25 0.33 0 0 0
+0.33 0.25 0 0.25 0.33 0.33 0 0 0 0.25 0.33 0.33 0 0 0 0.25 0.33 0.33
+0 0.25 0.33 0 0 0 0.33;
+#X obj 901 274 mtx;
+#X obj 883 231 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X msg 1030 59 matrix 10 10 1 1 1 1 0 0 0 0 0 0 1 1 1 1 0 0 0 0 0 0
+1 1 1 1 0 0 0 0 0 0 1 1 1 1 1 0 0 0 0 0 0 0 0 1 1 1 0 0 1 0 0 0 0 0
+1 1 1 1 0 0 0 0 0 0 0 1 1 1 0 0 0 0 0 0 0 1 1 1 0 0 0 0 0 0 1 0 0 0
+1 1 0 0 0 0 0 0 0 0 1 1;
+#X obj 928 301 markovClusteringAlgorithm 10 2 1;
+#X connect 1 0 11 0;
+#X connect 3 0 20 0;
+#X connect 3 0 18 0;
+#X connect 4 0 13 0;
+#X connect 4 0 15 0;
+#X connect 5 0 7 0;
+#X connect 7 0 17 0;
+#X connect 8 0 2 0;
+#X connect 9 0 13 0;
+#X connect 9 0 15 0;
+#X connect 11 0 2 0;
+#X connect 12 0 16 0;
+#X connect 12 1 16 1;
+#X connect 16 0 7 1;
+#X connect 16 1 27 1;
+#X connect 17 0 19 0;
+#X connect 18 0 4 0;
+#X connect 20 0 6 0;
+#X connect 21 0 23 0;
+#X connect 21 0 30 0;
+#X connect 22 0 21 0;
+#X connect 24 0 23 0;
+#X connect 24 0 30 0;
+#X connect 25 0 23 0;
+#X connect 25 0 30 0;
+#X connect 26 0 23 0;
+#X connect 26 0 30 0;
+#X connect 27 0 30 0;
+#X connect 28 0 27 0;
+#X connect 29 0 23 0;
+#X connect 29 0 30 0;

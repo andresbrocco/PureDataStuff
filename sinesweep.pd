@@ -1,0 +1,17 @@
+#N canvas 1 548 450 300 12;
+#X obj 127 185 osc~;
+#X floatatom 110 85 5 0 0 0 - - -;
+#X obj 110 109 exp;
+#X floatatom 110 134 8 0 0 0 - - -;
+#X obj 121 237 cyclone/output~;
+#X msg 195 27 3 60000;
+#X obj 110 60 line 3 20;
+#X msg 109 24 10 60000;
+#X connect 0 0 4 0;
+#X connect 0 0 4 1;
+#X connect 1 0 2 0;
+#X connect 2 0 3 0;
+#X connect 3 0 0 0;
+#X connect 5 0 6 0;
+#X connect 6 0 1 0;
+#X connect 7 0 6 0;
